@@ -1,4 +1,4 @@
-package com.phonegap.weixin;
+package com.nova.cordova.wxpay;
 
 import java.security.MessageDigest;
 

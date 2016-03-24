@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugin id="com.nova.cordova.wxpay" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="nova.cordova.plugins.wxpay" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>wxpay</name>
     <description>wxpay</description>
     <!-- add this to your config.xml -->
@@ -11,7 +11,7 @@
     <engines>
         <engine name="cordova" version=">=3.5.0" />
     </engines>
-    <js-module src="www/pgwxpay.js" name="wxpay">
+    <js-module src="pgwxpay.js" name="wxpay">
         <clobbers target="wxpay" />
     </js-module>
     <platform name="android">
@@ -28,7 +28,6 @@
             <!-- wxpay sdk end -->
         </config-file>
         <!-- Plugin Source -->
-        <source-file src="www/pgwxpay.js" target-dir="src/assets" />
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <!-- wxpay sdk begin -->
             <activity android:name=".wxapi.WXPayEntryActivity" android:exported="true" android:launchMode="singleTop" />

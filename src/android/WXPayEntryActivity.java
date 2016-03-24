@@ -5,8 +5,8 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 
-import com.qsk.weixin.Keyswx;
-import com.qsk.weixin.Pgwxpay;
+import com.nova.cordova.wxpay.Keyswx;
+import com.nova.cordova.wxpay.Pgwxpay;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
