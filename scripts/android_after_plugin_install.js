@@ -10,7 +10,7 @@ module.exports = function(context) {
     var packageName = cfg.packageName();
     var androidJSON = JSON.parse(fs.readFileSync(context.opts.projectRoot + '/plugins/android.json'));
     var wxpayPath = context.opts.projectRoot + '/platforms/android/src/com/nova/cordova/wxpay';
-    var wxpayKeysPath = wxpayPath + '/Keys.java';
+    var wxpayKeysPath = wxpayPath + '/Keys.Keyswx';
 
     fs.readFile(context.opts.projectRoot + '/plugins/com.nova.cordova.wxpay/src/android/com/nova/cordova/wxpay/Keyswx.java', 'utf8', function(err, data) {
         if (err) throw err;
@@ -28,6 +28,7 @@ module.exports = function(context) {
 
     var wxpayEntryPath = context.opts.projectRoot + '/platforms/android/src/' + packageName.replace(/./g, '/'); + '/wxapi';
     var wxpayEntryActivityPath = wxpayEntryPath + 'WXPayEntryActivity.java';
+    console.log(packageName,wxpayEntryPath,wxpayEntryActivityPath);
     fs.readFile(context.opts.projectRoot + '/plugins/com.nova.cordova.wxpay/src/android/WXPayEntryActivity.java', 'utf8', function(err, data) {
         if (err) throw err;
         var result = data.replace(/\$PACKAGENAME/g, packageName);
