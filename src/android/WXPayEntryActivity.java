@@ -1,4 +1,4 @@
-package com.qsk.app.wxapi;
+package PACKAGENAME.wxapi;
  
 
 import org.apache.cordova.CallbackContext;

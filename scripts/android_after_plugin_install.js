@@ -19,16 +19,23 @@ module.exports = function(context) {
         result = result.replace(/\$APIKEY/g, androidJSON.installed_plugins["com.nova.cordova.wxpay"].APIKEY);
         fs.exists(wxpayPath, function(exists) {
             if (!exists) fs.mkdir(wxpayPath);
-
-            fs.exists(wxpayKeysPath, function(fexists) {
-                // if(fexists) console.log(wxpayKeysPath + ' is exists, Not be replaced.');
-                // else {
-                fs.writeFile(wxpayKeysPath, result, 'utf8', function(err) {
-                    if (err) throw err;
-                });
-                // }
+            fs.writeFile(wxpayKeysPath, result, 'utf8', function(err) {
+                if (err) throw err;
             });
+        });
 
+    });
+
+    var wxpayEntryPath = context.opts.projectRoot + '/platforms/android/src/' + packageName.replace(/./g, '/'); + '/wxapi';
+    var wxpayEntryActivityPath = wxpayEntryPath + 'WXPayEntryActivity.java';
+    fs.readFile(context.opts.projectRoot + '/plugins/com.nova.cordova.wxpay/src/android/WXPayEntryActivity.java', 'utf8', function(err, data) {
+        if (err) throw err;
+        var result = data.replace(/\$PACKAGENAME/g, packageName);
+        fs.exists(wxpayEntryPath, function(exists) {
+            if (!exists) fs.mkdir(wxpayEntryPath);
+            fs.writeFile(wxpayEntryActivityPath, result, 'utf8', function(err) {
+                if (err) throw err;
+            });
         });
 
     });
