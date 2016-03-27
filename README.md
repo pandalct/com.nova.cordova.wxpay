@@ -1,5 +1,1 @@
-Hello nova.cordova.plugins.alipay     
-
-
-
-test
+Hello nova.cordova.plugins.alipay
