@@ -7,12 +7,12 @@
 // 账号帐户资料
 //更改商户把相关参数后可测试
 
-#define APP_ID          @"wx29e2d22181a6618d"               //APPID
+#define APP_ID          @"$APPID"               //APPID
  
 //商户号，填写商户对应参数
-#define MCH_ID          @"1233926702"
+#define MCH_ID          @"$MCHID"
 //商户API密钥，填写相应参数
-#define PARTNER_key      @"1qazxsw22fr45tgbnhy67ujmki89"
+#define PARTNER_key      @"$APIKEY"
 
 
 

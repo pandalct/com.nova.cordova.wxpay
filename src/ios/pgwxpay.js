@@ -3,7 +3,7 @@ cordova.define("cordova/plugins/Pgwxpay",
     var exec = require("cordova/exec");
     var Pgwxpay = function() {};
      //----------------------------//支付---------------------------------------
-	  Pgwxpay.prototype.wxpay = function(out_trade_no,url,bodtxt,total_fee,successCallback, errorCallback) {
+      Pgwxpay.prototype.wxpay = function(out_trade_no,url,bodtxt,total_fee,successCallback, errorCallback) {
         if (errorCallback == null) { errorCallback = function() {}}
     
         if (typeof errorCallback != "function")  {
@@ -18,9 +18,9 @@ cordova.define("cordova/plugins/Pgwxpay",
     
         exec(successCallback, errorCallback, 'Pgwxpay', 'wxpay', [out_trade_no,url,bodtxt,total_fee]);
     };
-	  
-	    //----------------------------j检查是否安装微信---------------------------------------
-	 Pgwxpay.prototype.iswx = function(successCallback, errorCallback) {
+      
+        //----------------------------j检查是否安装微信---------------------------------------
+     Pgwxpay.prototype.iswx = function(successCallback, errorCallback) {
         if (errorCallback == null) { errorCallback = function() {}}
     
         if (typeof errorCallback != "function")  {
@@ -35,7 +35,7 @@ cordova.define("cordova/plugins/Pgwxpay",
     
         exec(successCallback, errorCallback, 'Pgwxpay', 'iswx', []);
     };
-	
+    
     var Pgwxpay = new Pgwxpay();
     module.exports = Pgwxpay;
 

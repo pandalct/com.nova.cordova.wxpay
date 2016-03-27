@@ -11,10 +11,11 @@
     <engines>
         <engine name="cordova" version=">=3.5.0" />
     </engines>
-    <js-module src="pgwxpay.js" name="wxpay">
-        <clobbers target="wxpay" />
-    </js-module>
+   
     <platform name="android">
+        <js-module src="src/android/pgwxpay.js" name="wxpay">
+            <clobbers target="wxpay" />
+        </js-module>
         <hook type="after_plugin_install" src="scripts/android_after_plugin_install.js" />
         <config-file target="config.xml" parent="/*">
             <feature name="Pgwxpay">
@@ -42,6 +43,9 @@
     </platform>
     <platform name="ios">
         <hook type="after_plugin_install" src="scripts/ios_after_plugin_install.js" />
+        <js-module src="src/ios/pgwxpay.js" name="wxpay">
+            <clobbers target="wxpay" />
+        </js-module>
         <config-file target="config.xml" parent="/*">
             <feature name="Pgwxpay">
                 <param name="ios-package" value="Pgwxpay" />
@@ -67,17 +71,17 @@
                     <string>wexin</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>$APIKEY</string>
+                        <string>$APPID</string>
                     </array>
                 </dict>
             </array>
         </config-file>
         <header-file src="src/ios/ApiXml.h" />
         <source-file src="src/ios/ApiXml.mm" compiler-flags="-fno-objc-arc" />
-        <header-file src="src/ios/payRequestHandler.h" />
-        <source-file src="src/ios/payRequestHandler.mm" compiler-flags="-fno-objc-arc" />
+        <header-file src="src/ios/payRequsestHandler.h" />
+        <source-file src="src/ios/payRequsestHandler.mm" compiler-flags="-fno-objc-arc" />
         <header-file src="src/ios/Pgwxpay.h" />
-        <source-file src="src/ios/Pgwxpay.mm" compiler-flags="-fno-objc-arc" />
+        <source-file src="src/ios/Pgwxpay.m" compiler-flags="-fno-objc-arc" />
         <header-file src="src/ios/WXUtil.h" />
         <source-file src="src/ios/WXUtil.mm" />
         <header-file src="src/ios/WechatAuthSDK.h" />
@@ -90,7 +94,9 @@
         <framework src="CoreGraphics.framework" />
         <framework src="CoreTelephony.framework" />
         <framework src="Foundation.framework" />
-        <framework src="libsqlite3.dylib" />
+        <framework src="libsqlite3.0.dylib" />
         <framework src="libz.dylib" />
+
+        <framework src="src/ios/libWeChatSDK.a" custom="true"/> 
     </platform>
 </plugin>
