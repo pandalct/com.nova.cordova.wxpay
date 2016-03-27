@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugin id="com.nova.cordova.wxpay" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="nova.cordova.plugins.wxpay" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>wxpay</name>
     <description>wxpay</description>
     <!-- add this to your config.xml -->
@@ -11,10 +11,11 @@
     <engines>
         <engine name="cordova" version=">=3.5.0" />
     </engines>
-    <js-module src="www/pgwxpay.js" name="wxpay">
-        <clobbers target="wxpay" />
-    </js-module>
+   
     <platform name="android">
+        <js-module src="src/android/pgwxpay.js" name="wxpay">
+            <clobbers target="wxpay" />
+        </js-module>
         <hook type="after_plugin_install" src="scripts/android_after_plugin_install.js" />
         <config-file target="config.xml" parent="/*">
             <feature name="Pgwxpay">
@@ -28,7 +29,6 @@
             <!-- wxpay sdk end -->
         </config-file>
         <!-- Plugin Source -->
-        <source-file src="www/pgwxpay.js" target-dir="src/assets" />
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <!-- wxpay sdk begin -->
             <activity android:name=".wxapi.WXPayEntryActivity" android:exported="true" android:launchMode="singleTop" />
@@ -42,19 +42,25 @@
         <source-file src="src/android/com/nova/cordova/wxpay/Util.java" target-dir="src/com/nova/cordova/wxpay" />
     </platform>
     <platform name="ios">
+        <hook type="after_plugin_install" src="scripts/ios_after_plugin_install.js" />
+        <js-module src="src/ios/pgwxpay.js" name="wxpay">
+            <clobbers target="wxpay" />
+        </js-module>
         <config-file target="config.xml" parent="/*">
-            <feature name="wxpay">
-                <param name="ios-package" value="wxpay" />
+            <feature name="Pgwxpay">
+                <param name="ios-package" value="Pgwxpay" />
             </feature>
-            <preference name="wxpayAPPKEY" value="$wxpay_IOS_APPKEY" />
-            <preference name="WECHATAPPID" value="$WECHATAPPID" />
-            <preference name="WECHATAPPSECRET" value="$WECHATAPPSECRET" />
-            <preference name="QQAPPID" value="$QQAPPID" />
-            <preference name="QQAPPKEY" value="$QQAPPKEY" />
-            <preference name="QQURLSCHEME" value="$QQURLSCHEME" />
-            <preference name="WBAPPKEY" value="$WBAPPKEY" />
-            <preference name="WBAPPSECRET" value="$WBAPPSECRET" />
-            <preference name="WBREDIRECTURL" value="$WBREDIRECTURL" />
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+            </dict>
+        </config-file>
+        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+            <array>
+                <string>weixin</string>
+            </array>
         </config-file>
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
             <array>
@@ -62,115 +68,35 @@
                     <key>CFBundleTypeRole</key>
                     <string>Editor</string>
                     <key>CFBundleURLName</key>
-                    <string></string>
+                    <string>wexin</string>
                     <key>CFBundleURLSchemes</key>
                     <array>
-                        <string>$WECHATAPPID</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>CFBundleTypeRole</key>
-                    <string>Editor</string>
-                    <key>CFBundleURLName</key>
-                    <string></string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>wb$WBAPPKEY</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>CFBundleTypeRole</key>
-                    <string>Editor</string>
-                    <key>CFBundleURLName</key>
-                    <string></string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>tencent$QQAPPID</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>CFBundleTypeRole</key>
-                    <string>Editor</string>
-                    <key>CFBundleURLName</key>
-                    <string></string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>$QQURLSCHEME</string>
+                        <string>$APPID</string>
                     </array>
                 </dict>
             </array>
         </config-file>
-        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
-            <array>
-                <string>weixin</string>
-                <string>wechat</string>
-                <string>mqqOpensdkSSoLogin</string>
-                <string>mqqopensdkapiV2</string>
-                <string>mqqopensdkapiV3</string>
-                <string>wtloginmqq2</string>
-                <string>mqq</string>
-                <string>mqqapi</string>
-                <string>mqzoneopensdk</string>
-                <string>mqzoneopensdkapi</string>
-                <string>mqzoneopensdkapi19</string>
-                <string>mqqwpa</string>
-                <string>mqzone</string>
-                <string>sinaweibo</string>
-                <string>sinaweibohd</string>
-                <string>sinaweibosso</string>
-                <string>sinaweibohdsso</string>
-                <string>weibosdk</string>
-                <string>weibosdk2.5</string>
-            </array>
-        </config-file>
-        <header-file src="src/ios/wxpay.h" />
-        <source-file src="src/ios/wxpay.m" />
+        <header-file src="src/ios/ApiXml.h" />
+        <source-file src="src/ios/ApiXml.mm" compiler-flags="-fno-objc-arc" />
+        <header-file src="src/ios/payRequsestHandler.h" />
+        <source-file src="src/ios/payRequsestHandler.mm" compiler-flags="-fno-objc-arc" />
+        <header-file src="src/ios/Pgwxpay.h" />
+        <source-file src="src/ios/Pgwxpay.m" compiler-flags="-fno-objc-arc" />
+        <header-file src="src/ios/WXUtil.h" />
+        <source-file src="src/ios/WXUtil.mm" />
+        <header-file src="src/ios/WechatAuthSDK.h" />
+        <header-file src="src/ios/WXApiObject.h" />
+        <header-file src="src/ios/WXApi.h" />
         <!-- Other required frameworks -->
-        <framework src="libz.1.2.5.dylib" />
-        <framework src="MessageUI.framework" />
-        <framework src="SystemConfiguration.framework" />
         <framework src="Security.framework" />
-        <framework src="libstdc++.dylib" />
-        <framework src="QuartzCore.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="Foundation.framework" />
+        <framework src="CoreGraphics.framework" />
         <framework src="CoreTelephony.framework" />
-        <framework src="libicucore.dylib" />
-        <framework src="JavaScriptCore.framework" />
-        <framework src="CoreText.framework" />
-        <framework src="libsqlite3.dylib" />
-        <framework src="ImageIO.framework" />
-        <!-- Wechat Official -->
-        <header-file src="src/ios/wxpay/Extend/WeChatSDK/WXApi.h" />
-        <header-file src="src/ios/wxpay/Extend/WeChatSDK/WXApiObject.h" />
-        <source-file src="src/ios/wxpay/Extend/WeChatSDK/libWeChatSDK.a" framework="true" />
-        <resource-file src="src/ios/wxpay/Extend/QQConnectSDK/TencentOpenApi_IOS_Bundle.bundle" />
-        <!-- Sina Official -->
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WeiboSDK.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WeiboUser.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WeiboSDK+Statistics.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBSDKRelationshipButton.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBSDKCommentButton.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBSDKBasicButton.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBHttpRequest.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBHttpRequest+WeiboUser.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBHttpRequest+WeiboToken.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBHttpRequest+WeiboShare.h" />
-        <header-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WBHttpRequest+WeiboGame.h" />
-        <source-file src="src/ios/wxpay/Extend/SinaWeiboSDK/libWeiboSDK.a" framework="true" />
-        <resource-file src="src/ios/wxpay/Extend/SinaWeiboSDK/WeiboSDK.bundle" />
-        <!-- wxpay -->
-        <framework src="src/ios/wxpay/wxpay.framework" custom="true" />
-        <framework src="src/ios/wxpay/Connection/QQConnection.framework" custom="true" />
-        <framework src="src/ios/wxpay/Connection/QZoneConnection.framework" custom="true" />
-        <framework src="src/ios/wxpay/Connection/SinaWeiboConnection.framework" custom="true" />
-        <framework src="src/ios/wxpay/Connection/WeChatConnection.framework" custom="true" />
-        <framework src="src/ios/wxpay/Core/wxpayCoreService.framework" custom="true" />
-        <framework src="src/ios/wxpay/Core/AGCommon.framework" custom="true" />
-        <framework src="src/ios/wxpay/Core/MOBFoundation.framework" custom="true" />
-        <resource-file src="src/ios/wxpay/UI/wxpayFlatShareViewUI.bundle" />
-        <resource-file src="src/ios/wxpay/Core/zh-Hans.lproj/wxpayLocalizable.strings" />
-        <resource-file src="src/ios/wxpay/Core/Resource.bundle" />
-        <framework src="src/ios/wxpay/UI/wxpayShareActionSheet.framework" custom="true" />
-        <framework src="src/ios/wxpay/UI/wxpayFlatShareViewUI.framework" custom="true" />
-        <framework src="src/ios/wxpay/Extend/QQConnectSDK/TencentOpenAPI.framework" custom="true" />
+        <framework src="Foundation.framework" />
+        <framework src="libsqlite3.0.dylib" />
+        <framework src="libz.dylib" />
+
+        <framework src="src/ios/libWeChatSDK.a" custom="true"/> 
     </platform>
 </plugin>

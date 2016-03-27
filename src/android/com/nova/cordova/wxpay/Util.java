@@ -1,4 +1,4 @@
-package com.phonegap.weixin;
+package com.nova.cordova.wxpay;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -215,7 +215,7 @@ public class Util {
 		byte[] b = null;
 		try {
 			RandomAccessFile in = new RandomAccessFile(fileName, "r");
-			b = new byte[len]; // 创建合适文件大小的数组
+			b = new byte[len]; // 麓麓陆篓潞脧脢脢脦脛录镁麓贸脨隆碌脛脢媒脳茅
 			in.seek(offset);
 			in.readFully(b);
 			in.close();

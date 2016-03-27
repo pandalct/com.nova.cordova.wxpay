@@ -1,4 +1,4 @@
-package com.phonegap.weixin;
+package com.nova.cordova.wxpay;
 
 /**
  * 这个插件是基于微信支付实现的的phonegap插件.
