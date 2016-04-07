@@ -2,7 +2,7 @@ Hello nova.cordova.plugins.alipay
 
 
 
-phonegap plugin add /Users/terry/Projects/nova.cordova.plugins.wxpay --variable APPID=wxdb9632728d4ac114 --variable MCHID=1294650801 --variable APIKEY=8Ux0PZ7MbqTuX8x4K6KE8CtrqA5QMq0N
+phonegap plugin add /Users/terry/Projects/nova.cordova.plugins.wxpay --variable APPID={APPID} --variable MCHID={MCHID} --variable APIKEY={APIKEY}
 
 
 iOS
@@ -61,7 +61,6 @@ AppDelegate.m中修改：
     if ([resp isKindOfClass:[PayResp class]])
     {
         PayResp *response = (PayResp *)resp;
-        
         [self.viewController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"wxresults('%d')",response.errCode]];
         
     }
